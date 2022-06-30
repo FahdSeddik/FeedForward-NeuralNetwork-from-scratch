@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <iostream>
 using namespace std;
 /*
 				************************
@@ -30,9 +31,11 @@ public:
 	//Takes number of rows and columns for matrix
 	Matrix(const int rows=0,const int cols=0);
 
-	//Initialize using already made vector
+	//Initialize using already made 2d vector
 	Matrix(const vector<vector<float>>& Vals,const int rows,const int cols);
 
+	//Initialize using already made 1d vector
+	Matrix(const vector<float>& Vals, const int rows, const int cols);
 
 	//Copy constructor
 	Matrix(const Matrix& Mat);
@@ -41,7 +44,7 @@ public:
 
 	//Returns values in matrix at specified row and column
 	//row 0,column 0 corresponds to upper left value
-	float at(const int row,const int col)const;
+	float& at(const int row,const int col);
 
 
 	//Operator overloading
@@ -52,5 +55,10 @@ public:
 	Matrix operator-(const Matrix& rMat)const;
 	Matrix& operator-=(const Matrix& rMat);
 	bool operator==(const Matrix& rMat)const;
+	friend ostream& operator<<(ostream& os, const Matrix& Mat);
 	
+	int get_rows()const;
+	int get_cols()const;
+	void set_values(vector<vector<float>>& V);
+	void set_values(vector<float>& V,bool colVec=true);
 };

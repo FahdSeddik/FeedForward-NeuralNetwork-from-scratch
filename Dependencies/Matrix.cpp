@@ -16,7 +16,24 @@ Matrix::Matrix(const vector<vector<float>>& Vals,const int rows,const int cols)
 	_rows = rows;
 	values = Vals;
 }
-
+Matrix::Matrix(const vector<float>& Vals, const int rows, const int cols)
+{
+	if ( ((int)Vals.size() != rows && cols==1) || ((int)Vals.size() != cols && rows == 1))
+		throw "Matrix Initialization: Incompatible vector given.";
+	_cols = cols;
+	_rows = rows;
+	values.resize(rows, vector<float>(cols));
+	for (int i = 0; i < rows; i++)
+	{
+		for (int j = 0; j < cols; j++)
+		{
+			if (cols == 1)
+				values[i][j] = Vals[i];
+			else
+				values[i][j] = Vals[j];
+		}
+	}
+}
 Matrix::Matrix(const Matrix& Mat)
 {
 	values = Mat.values;
@@ -24,7 +41,7 @@ Matrix::Matrix(const Matrix& Mat)
 	_cols = Mat._cols;
 }
 
-float Matrix::at(const int row,const int col) const
+float& Matrix::at(const int row,const int col)
 {
 	/*
 	Example: Matrix 6x7
@@ -153,4 +170,70 @@ bool Matrix::operator==(const Matrix& rMat) const
 		return false;
 
 	return values == rMat.values;
+}
+
+ostream& operator<<(ostream& os, const Matrix& Mat)
+{
+	for (int i = 0; i < Mat._rows; i++)
+	{
+		os << "[";
+		for (int j = 0; j < Mat._cols; j++)
+		{
+			os << Mat.values[i][j] << " ";
+		}
+		os << "]\n";
+	}
+	return os;
+}
+
+int Matrix::get_rows() const
+{
+	return _rows;
+}
+
+int Matrix::get_cols() const
+{
+	return _cols;
+}
+
+void Matrix::set_values(vector<vector<float>>& V)
+{
+	int rows = V.size();
+	int cols = V[0].size();
+	values.resize(rows, vector<float>(cols));
+	for (int i = 0; i < rows; i++)
+	{
+		for (int j = 0; j < cols; j++)
+		{
+			values[i][j] = V[i][j];
+		}
+	}
+	_rows = rows;
+	_cols = cols;
+}
+void Matrix::set_values(vector<float>& V,bool colVec)
+{
+	int rows, cols;
+	if (colVec) {
+		rows = V.size();
+		cols = 1;
+	}
+	else {
+		rows = 1;
+		cols = V.size();
+	}
+
+	values.resize(rows, vector<float>(cols));
+	for (int i = 0; i < rows; i++)
+	{
+		for (int j = 0; j < cols; j++)
+		{
+			if(colVec)
+				values[i][j] = V[i];
+			else
+				values[i][j] = V[j];
+		}
+	}
+	_rows = rows;
+	_cols = cols;
 }
