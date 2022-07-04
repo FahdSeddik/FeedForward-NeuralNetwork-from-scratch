@@ -54,7 +54,8 @@ Layer::Layer(const int units, const string activation,const string wi)
 void Layer::initialize(const int input_shape)
 {
 	this->input_shape = input_shape;
-	vector<vector<float>> v(units, vector<float>(input_shape));
+	vector<vector<float>> v(units, vector<float>(input_shape,0.0f));
+	delta_W.set_values(v);
 	if (wi == "nx")
 		NX(v);
 	else
@@ -68,8 +69,9 @@ void Layer::initialize(const int input_shape)
 	cout << "Initialized Weights:\n" << W;
 }
 
-Matrix Layer::forward(const Matrix& Vector) const
+Matrix Layer::forward(const Matrix& Vector)
 {
+	last_input = Vector;
 	//Vector is the column vector of inputs to the layer
 	//we need to perform the operation Weights*Input + Bias
 	Matrix Operation(W*Vector + B);
@@ -81,6 +83,53 @@ Matrix Layer::forward(const Matrix& Vector) const
 		}
 	}
 	return Operation;
+}
+
+void Layer::backward(Matrix& D,float learnRate)
+{
+	// Matrix D column vector differentiated
+	// 2*(y-y1)
+	// .....
+	// .....
+	// 2*(y-yj)
+	
+	//This is called only on last layer(special case)
+
+	for (int j = 0; j < units; j++)
+	{
+		for (int k = 0; k < input_shape; k++)
+		{
+			for (int i = 0; i < D.get_rows(); i++)
+			{
+				delta_W.at(j, k) += learnRate * D.at(i, 0) * last_input.at(k, 0);
+			}
+		}
+	}
+
+
+}
+
+void Layer::backward(Layer& Next,float learnRate,float delta)
+{
+	// delta = 2*(y-yi) passed from network
+	//
+
+	for (int j = 0; j < units; j++)
+	{
+		for (int k = 0; k < input_shape; k++)
+		{
+			for (int i = 0; i < Next.W.get_rows(); i++)
+			{
+				delta_W.at(j, k) += learnRate * delta * Next.W.at(i, j) * last_input.at(k, 0);
+			}
+		}
+	}
+}
+
+void Layer::update_weights()
+{
+	W += delta_W;
+	delta_W -=delta_W;
 }
 
 int Layer::get_units() const

@@ -41,6 +41,11 @@ Matrix::Matrix(const Matrix& Mat)
 	_cols = Mat._cols;
 }
 
+Matrix Matrix::Zero(int rows, int cols)
+{
+	return Matrix(vector<vector<float>>(rows,vector<float>(cols,0.0f)),rows,cols);
+}
+
 float& Matrix::at(const int row,const int col)
 {
 	/*
@@ -170,6 +175,14 @@ bool Matrix::operator==(const Matrix& rMat) const
 		return false;
 
 	return values == rMat.values;
+}
+
+Matrix Matrix::operator=(const Matrix& rMat)
+{
+	values = rMat.values;
+	_rows = rMat._rows;
+	_cols = rMat._cols;
+	return *this;
 }
 
 ostream& operator<<(ostream& os, const Matrix& Mat)

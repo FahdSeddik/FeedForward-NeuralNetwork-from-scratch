@@ -7,6 +7,7 @@ private:
 	//Array of layers
 	Layer* Layers;
 	int numLayers;
+	float learnRate;
 public:
 	//Constructor: Takes array of Layers
 	NN(Layer Layers[], int numLayers);
@@ -18,6 +19,12 @@ public:
 	//Returns Neural Network output Matrix
 	Matrix forward_pass(Matrix& input);
 
-
+	void back_prop(Matrix& Output,Matrix& Y,float learnRate=0.01);
 	//void compile(const string optimizer = "adam", const string loss = "mae", const string metrics = "mae");
+
+	//takes a matrix X
+	//[Input1column  Input2column....]
+	//matrix Y
+	//[Output1column  output2column...]
+	void train(Matrix& X, Matrix& Y);
 };

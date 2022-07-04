@@ -40,7 +40,8 @@ public:
 	//Copy constructor
 	Matrix(const Matrix& Mat);
 
-
+	//returns all zero matrix
+	static Matrix Zero(int rows, int cols);
 
 	//Returns values in matrix at specified row and column
 	//row 0,column 0 corresponds to upper left value
@@ -55,6 +56,7 @@ public:
 	Matrix operator-(const Matrix& rMat)const;
 	Matrix& operator-=(const Matrix& rMat);
 	bool operator==(const Matrix& rMat)const;
+	Matrix operator=(const Matrix& rMat);
 	friend ostream& operator<<(ostream& os, const Matrix& Mat);
 	
 	int get_rows()const;

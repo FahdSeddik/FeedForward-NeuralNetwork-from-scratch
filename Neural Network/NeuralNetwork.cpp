@@ -17,8 +17,41 @@ Matrix NN::forward_pass(Matrix& Input)
 	for (int i = 0; i < numLayers; i++)
 	{
 		Output=Layers[i].forward(Output);
-		cout <<"Operation num: "<<i+1<<" out of "<< numLayers<<"\n" << Output;
+		//cout <<"Operation num: "<<i+1<<" out of "<< numLayers<<"\n" << Output;
 	}
 
 	return Output;
+}
+
+void NN::back_prop(Matrix& Output,Matrix& Y,float learnRate)
+{
+	//Y is a column vector
+	//rows are units of output layer
+	
+	// MSE cost function (y'-y)^2
+	// delta = 2*(y'-y)*del wj
+	Matrix delta(Y);
+
+	for (int i = 0; i < Y.get_rows(); i++)
+	{
+		delta.at(i, 0) = 2 * (Y.at(i, 0) - Output.at(i, 0));
+	}
+
+	Layers[numLayers - 1].backward(delta, learnRate);
+	for (int j = 0; j < Y.get_rows(); j++)
+	{
+		for (int i = numLayers - 2; i >= 0; i--)
+		{
+			Layers[i].backward(Layers[i + 1], learnRate, delta.at(j, 0));
+		}
+	}
+	for (int i = 0; i < numLayers; i++)
+	{
+		Layers[i].update_weights();
+	}
+}
+
+void NN::train(Matrix& X, Matrix& Y)
+{
+
 }

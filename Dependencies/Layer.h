@@ -32,6 +32,9 @@ private:
 	*/
 	Matrix B; 
 
+	Matrix last_input;
+	Matrix delta_W;
+
 	//units are rows of matrix
 	//input shape defines columns of matrix
 	int units,input_shape;
@@ -73,8 +76,14 @@ public:
 
 	//Returns layer result after forward pass
 	//Weights*Input + Bias
-	Matrix forward(const Matrix& Vector)const;
+	Matrix forward(const Matrix& Vector);
 
+
+	//
+	void backward(Matrix& D,float learnRate);
+	void backward(Layer& Next,float learnRate,float delta);
+
+	void update_weights();
 
 	int get_units()const;
 	int get_input_shape()const;
