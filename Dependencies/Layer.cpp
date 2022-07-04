@@ -129,6 +129,7 @@ void Layer::backward(Layer& Next,float learnRate,float delta)
 void Layer::update_weights()
 {
 	W += delta_W;
+	//cout << "Updated by:\n" << delta_W;
 	delta_W -=delta_W;
 }
 
