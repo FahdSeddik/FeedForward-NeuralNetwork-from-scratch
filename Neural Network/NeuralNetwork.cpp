@@ -37,13 +37,9 @@ void NN::back_prop(Matrix& Output,Matrix& Y,float learnRate)
 		delta.at(i, 0) = 2 * (Y.at(i, 0) - Output.at(i, 0));
 	}
 
-	Layers[numLayers - 1].backward(delta, learnRate);
-	for (int j = 0; j < Y.get_rows(); j++)
+	for (int i = numLayers - 1; i >= 0; i--)
 	{
-		for (int i = numLayers - 2; i >= 0; i--)
-		{
-			Layers[i].backward(Layers[i + 1], learnRate, delta.at(j, 0));
-		}
+		Layers[i].backward(delta, learnRate);
 	}
 	for (int i = 0; i < numLayers; i++)
 	{

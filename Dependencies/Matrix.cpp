@@ -46,6 +46,11 @@ Matrix Matrix::Zero(int rows, int cols)
 	return Matrix(vector<vector<float>>(rows,vector<float>(cols,0.0f)),rows,cols);
 }
 
+Matrix Matrix::One(int rows, int cols)
+{
+	return Matrix(vector<vector<float>>(rows, vector<float>(cols, 1.0f)), rows, cols);
+}
+
 float& Matrix::at(const int row,const int col)
 {
 	/*
@@ -61,6 +66,19 @@ float& Matrix::at(const int row,const int col)
 	if (row<0 || col<0 || row>=_rows || col>=_cols)
 		throw "Matrix Accessing: Index out of bounds.";
 	return values[row][col];
+}
+
+Matrix Matrix::Transpose() const
+{
+	vector<vector<float>> v(_cols, vector<float>(_rows, 0.0f));
+	for (int i = 0; i < _rows; i++)
+	{
+		for (int j = 0; j < _cols; j++)
+		{
+			v[j][i] = values[i][j];
+		}
+	}
+	return Matrix(v,_cols,_rows);
 }
 
 Matrix Matrix::operator*(const Matrix& rMat) const
@@ -91,6 +109,19 @@ Matrix Matrix::operator*(const Matrix& rMat) const
 		}
 	}
 	return Matrix(v,_rows,rMat._cols);
+}
+
+Matrix Matrix::operator*(const float scalar) const
+{
+	vector<vector<float>> v(_rows, vector<float>(_cols, 0.0f));
+	for (int i = 0; i < _rows; i++)
+	{
+		for (int j = 0; j < _cols; j++)
+		{
+			v[i][j] = values[i][j] * scalar;
+		}
+	}
+	return Matrix(v,_rows,_cols);
 }
 
 Matrix& Matrix::operator*=(const Matrix& rMat)

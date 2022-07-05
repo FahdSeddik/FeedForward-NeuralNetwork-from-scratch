@@ -43,13 +43,20 @@ public:
 	//returns all zero matrix
 	static Matrix Zero(int rows, int cols);
 
+	//returns all one matrix
+	static Matrix One(int rows, int cols);
+
 	//Returns values in matrix at specified row and column
 	//row 0,column 0 corresponds to upper left value
 	float& at(const int row,const int col);
 
+	//Returns a copy of transpose of matrix
+	Matrix Transpose()const;
+
 
 	//Operator overloading
 	Matrix operator*(const Matrix& rMat)const;
+	Matrix operator*(const float scalar)const;
 	Matrix& operator*=(const Matrix& rMat);
 	Matrix operator+(const Matrix& rMat)const;
 	Matrix& operator+=(const Matrix& rMat);
@@ -63,4 +70,5 @@ public:
 	int get_cols()const;
 	void set_values(vector<vector<float>>& V);
 	void set_values(vector<float>& V,bool colVec=true);
+
 };

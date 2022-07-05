@@ -82,49 +82,28 @@ Matrix Layer::forward(const Matrix& Vector)
 			Operation.at(i, 0) = (float)1.0 / (float)((float)1.0 + exp(-Operation.at(i, 0)));
 		}
 	}
+	
 	return Operation;
 }
 
 void Layer::backward(Matrix& D,float learnRate)
 {
-	// Matrix D column vector differentiated
-	// 2*(y-y1)
-	// .....
-	// .....
-	// 2*(y-yj)
-	
-	//This is called only on last layer(special case)
+	// Matrix D is Delta
+		
+	/*if (activation == "sigmoid") {
+		delta_W = D * last_input * (Matrix::One(last_input.get_rows(), last_input.get_cols()) - last_input)*Li_noAc * learnRate;
 
-	for (int j = 0; j < units; j++)
-	{
-		for (int k = 0; k < input_shape; k++)
-		{
-			for (int i = 0; i < D.get_rows(); i++)
-			{
-				delta_W.at(j, k) += learnRate * D.at(i, 0) * last_input.at(k, 0);
-			}
-		}
+		D = W * (Matrix::One(W.get_cols(), W.get_rows()) - W.Transpose()) * D;
 	}
+	else {
 
+	}*/
+	delta_W = D * last_input.Transpose() * learnRate;
 
+	D = W.Transpose() * D;
 }
 
-void Layer::backward(Layer& Next,float learnRate,float delta)
-{
-	// delta = 2*(y-yi) passed from network
-	//
 
-	for (int j = 0; j < units; j++)
-	{
-		for (int k = 0; k < input_shape; k++)
-		{
-			for (int i = 0; i < Next.W.get_rows(); i++)
-			{
-				delta_W.at(j, k) += learnRate * delta * Next.W.at(i, j) * last_input.at(k, 0);
-			}
-		}
-	}
-}
 
 void Layer::update_weights()
 {

@@ -9,26 +9,24 @@ int main() {
 	i[1] = 1;
 	Matrix Input(i,2,1);
 	Layer Layers[] = {
-		Layer(2,2,"sigmoid","nx"),
-		Layer(3),
+		Layer(2,2,"no","nx"),
+		Layer(3,"no"),
 		Layer(1,"no")
 	};
 	NN model(Layers, 3);
-	cout << "\nInput:\n" << Input;
-	Matrix output = model.forward_pass(Input);
-	cout << "Final result:\n" << output;
 	cout << "\n\n";
 	vector<float> o(1);
 	o[0] = 1;
 	Matrix Y(o, 1, 1);
+	Matrix output = model.forward_pass(Input);
 	Matrix first = output;
-	for (int i = 0; i < 25; i++)
+	for (int i = 0; i < 10; i++)
 	{
-		model.back_prop(output, Y, 0.1);
-		//cout << "After" << i + 1 << " back prop output:\n";
+		cout << "After" << i + 1 << " back prop output:\n";
+		model.back_prop(output, Y, 0.2);
 		output = model.forward_pass(Input);
 		
-		//cout << output<<"\n";
+		cout << output<<"\n";
 	}
 	cout << "\nFirst:" << first;
 	cout << "Last:" << output;
