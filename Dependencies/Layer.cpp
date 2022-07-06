@@ -82,7 +82,7 @@ Matrix Layer::forward(const Matrix& Vector)
 			Operation.at(i, 0) = (float)1.0 / (float)((float)1.0 + exp(-Operation.at(i, 0)));
 		}
 	}
-	
+	last_output = Operation;
 	return Operation;
 }
 
@@ -90,17 +90,16 @@ void Layer::backward(Matrix& D,float learnRate)
 {
 	// Matrix D is Delta
 		
-	/*if (activation == "sigmoid") {
-		delta_W = D * last_input * (Matrix::One(last_input.get_rows(), last_input.get_cols()) - last_input)*Li_noAc * learnRate;
+	if (activation == "sigmoid") {
+		delta_W = D * last_output.Transpose() * (Matrix::One(last_output.get_rows(), last_input.get_cols()) - last_output)* last_input.Transpose() * learnRate;
 
-		D = W * (Matrix::One(W.get_cols(), W.get_rows()) - W.Transpose()) * D;
+		D = W.Transpose() * D* last_output.Transpose() * (Matrix::One(last_output.get_rows(), last_input.get_cols()) - last_output);
 	}
 	else {
-
-	}*/
-	delta_W = D * last_input.Transpose() * learnRate;
-
-	D = W.Transpose() * D;
+		delta_W = D * last_input.Transpose() * learnRate;
+		D = W.Transpose() * D;
+	}
+	
 }
 
 

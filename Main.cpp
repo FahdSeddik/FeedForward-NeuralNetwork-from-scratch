@@ -10,7 +10,7 @@ int main() {
 	Matrix Input(i,2,1);
 	Layer Layers[] = {
 		Layer(2,2,"no","nx"),
-		Layer(3,"no"),
+		Layer(3),
 		Layer(1,"no")
 	};
 	NN model(Layers, 3);
@@ -20,10 +20,10 @@ int main() {
 	Matrix Y(o, 1, 1);
 	Matrix output = model.forward_pass(Input);
 	Matrix first = output;
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 50; i++)
 	{
 		cout << "After" << i + 1 << " back prop output:\n";
-		model.back_prop(output, Y, 0.2);
+		model.back_prop(output, Y, 0.05);
 		output = model.forward_pass(Input);
 		
 		cout << output<<"\n";

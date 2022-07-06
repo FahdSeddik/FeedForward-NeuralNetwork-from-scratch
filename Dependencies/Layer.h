@@ -33,6 +33,7 @@ private:
 	Matrix B; 
 
 	Matrix last_input;
+	Matrix last_output;
 	Matrix delta_W;
 
 	//units are rows of matrix
