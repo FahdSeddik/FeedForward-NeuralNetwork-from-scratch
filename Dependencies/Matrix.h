@@ -66,6 +66,8 @@ public:
 	Matrix operator=(const Matrix& rMat);
 	friend ostream& operator<<(ostream& os, const Matrix& Mat);
 	
+	//Return column vector from matrix
+	Matrix Column(const int col);
 	int get_rows()const;
 	int get_cols()const;
 	void set_values(vector<vector<float>>& V);

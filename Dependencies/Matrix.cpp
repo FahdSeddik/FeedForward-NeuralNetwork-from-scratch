@@ -230,6 +230,16 @@ ostream& operator<<(ostream& os, const Matrix& Mat)
 	return os;
 }
 
+Matrix Matrix::Column(const int col)
+{
+	vector<vector<float>> v(_rows, vector<float>(1, 0.0f));
+	for (int i = 0; i < _rows; i++)
+	{
+		v[i][0] = values[i][col];
+	}
+	return Matrix(v,_rows,1);
+}
+
 int Matrix::get_rows() const
 {
 	return _rows;

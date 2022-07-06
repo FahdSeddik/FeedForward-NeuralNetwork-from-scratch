@@ -8,6 +8,7 @@ private:
 	Layer* Layers;
 	int numLayers;
 	float learnRate;
+	Matrix MSE;
 public:
 	//Constructor: Takes array of Layers
 	NN(Layer Layers[], int numLayers);
@@ -19,12 +20,13 @@ public:
 	//Returns Neural Network output Matrix
 	Matrix forward_pass(Matrix& input);
 
-	void back_prop(Matrix& Output,Matrix& Y,float learnRate=0.01);
+	void back_prop(Matrix& MSE,float learnRate=0.01);
 	//void compile(const string optimizer = "adam", const string loss = "mae", const string metrics = "mae");
 
 	//takes a matrix X
 	//[Input1column  Input2column....]
 	//matrix Y
 	//[Output1column  output2column...]
-	void train(Matrix& X, Matrix& Y);
+	void train(Matrix& X, Matrix& Y,const int batch_size,const int epochs,const float learnRate);
+	void test(Matrix& X);
 };
