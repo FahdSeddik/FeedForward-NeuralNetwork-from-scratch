@@ -21,6 +21,7 @@ In Dependencies folder:
     - summary() : prints a summary of the layer properties (units, input shape, etc.).
 
 ### Neural Network:
+* Cost function: MSE
 * Methods:
   - forward_pass(Matrix) : returns output of one forward pass using the neural network given Matrix input.
   - back_prop(Matrix,float) : performs one backward pass and updates weights and biases of all layers given expected Matrix and learnRate float.
