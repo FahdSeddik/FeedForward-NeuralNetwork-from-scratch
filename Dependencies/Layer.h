@@ -13,7 +13,7 @@ This class provides:
 			-Specify activation function (Default sigmoid)
 			-Optional specify input shape
 		Later, it can be initlized/made aware with dimensions from neural network according to previous layers
-	2. Dropout Layer: Specify dropout rate
+	2. Dropout Layer: Specify dropout rate (To be implemented)
 	3. BatchNormalization Layer (To be implemented)
 	
 */
@@ -43,7 +43,8 @@ private:
 	string wi; //weight initisalization
 	//float dropoutRate;
 
-	bool initialized;
+	
+
 	//Generates initial values for a 2d vector
 	//using Normalized Xavier Weight Initialization
 	void NX(vector<vector<float>>& V);
@@ -80,12 +81,17 @@ public:
 	Matrix forward(const Matrix& Vector);
 
 
-	//
+	//Performs one backward pass 
+	//Calculates delta weights and biases
 	void backward(Matrix& D,float learnRate);
 	
-
+	//Updates all weights and biases with calculated deltas
 	void update_weights();
 
+	//Getters
 	int get_units()const;
 	int get_input_shape()const;
+
+	//Prints a summary of the layer's properties
+	void summary()const;
 };

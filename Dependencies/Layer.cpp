@@ -65,8 +65,8 @@ void Layer::initialize(const int input_shape)
 	iB(b);
 	B.set_values(b);
 	W.set_values(v);
-	cout << "Initialized Bias:\n" << B;
-	cout << "Initialized Weights:\n" << W;
+	//cout << "Initialized Bias:\n" << B;
+	//cout << "Initialized Weights:\n" << W;
 }
 
 Matrix Layer::forward(const Matrix& Vector)
@@ -136,4 +136,13 @@ int Layer::get_units() const
 int Layer::get_input_shape() const
 {
 	return input_shape;
+}
+
+void Layer::summary() const
+{
+	cout << "Units: " << units;
+	cout << "\tInput Shape:" << input_shape;
+	cout << "\nBias:\n" << B;
+	cout << "Weights:\n" << W;
+
 }

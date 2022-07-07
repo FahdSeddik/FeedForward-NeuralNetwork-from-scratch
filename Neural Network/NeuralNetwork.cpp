@@ -30,11 +30,11 @@ void NN::back_prop(Matrix& Expected,float learnRate)
 	//Y is a column vector
 	//rows are units of output layer
 	
-	// MSE cost function (y'-y)^2
-	// delta = 2*(y'-y)*del wj
+	// MSE cost function 1/2(y'-y)^2
+	// d(y) = 2*1/2*(y'-y)*
 	
-	Matrix Delta = (Expected - last_output);
-
+	Matrix Delta = (Expected - last_output)*2;
+	
 
 	for (int i = numLayers - 1; i >= 0; i--)
 	{
@@ -46,36 +46,41 @@ void NN::back_prop(Matrix& Expected,float learnRate)
 	}
 }
 
-void NN::train(Matrix& X, Matrix& Y,const int batch_size,const int epochs,const float learnRate)
+void NN::train(Matrix& X, Matrix& Y,const int epochs,const float learnRate)
 {
-	Matrix Input,Output;
-	Matrix MSE;
-	MSE = Matrix::Zero(Y.get_rows(), 1);
+	cout << "Training model...\n";
+	Matrix Input,Expected;
 	int col = 0;
-	while (col<=Y.get_cols())
+	cout << "Progress:";
+	for (int i = 0; i < epochs; i++)
 	{
-		for (int i = 0; i < epochs; i++)
+		//pass whole train set per epoch
+		for (int j = 0; j < Y.get_cols(); j++)
 		{
-			for (int j = col; j <= col+batch_size; j++)
-			{
-				if (j >= Y.get_cols())
-					break;
-				Input = X.Column(j);
-				Output = forward_pass(Input);
-				for (int k = 0; k < MSE.get_rows(); k++)
-				{
-					MSE.at(k, 0) += 2 * (Y.at(k, j) - Output.at(k, 0));
-				}
-			}
-			MSE = MSE * (float)((float)1.0 / (float)batch_size);
-			back_prop(MSE, learnRate);
-			MSE -= MSE;
+			Input = X.Column(j);
+			forward_pass(Input);
+			Expected = Y.Column(j);
+			back_prop(Expected,learnRate);
 		}
-		col += batch_size;
+		if (i % (epochs / 10) == 0)
+			cout << "#";
 	}
+	cout << "\nTrained Successfully.\n";
 }
 
 void NN::test(Matrix& X)
 {
 	cout << forward_pass(X);
+}
+
+void NN::summary() const
+{
+	cout << "\n\t--===Model Summary===--\n";
+	cout << "\t**Number of Layers: " << numLayers<<"**\n";
+	for (int i = 0; i < numLayers; i++)
+	{
+		cout << "-=Layer number: " << i + 1 << endl;
+		Layers[i].summary();
+		cout << endl;
+	}
 }

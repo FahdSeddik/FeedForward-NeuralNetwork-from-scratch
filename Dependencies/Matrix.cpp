@@ -124,6 +124,18 @@ Matrix Matrix::operator*(const float scalar) const
 	return Matrix(v,_rows,_cols);
 }
 
+Matrix& Matrix::operator*=(const float scalar) 
+{
+	for (int i = 0; i < _rows; i++)
+	{
+		for (int j = 0; j < _cols; j++)
+		{
+			values[i][j] *=scalar;
+		}
+	}
+	return *this;
+}
+
 Matrix& Matrix::operator*=(const Matrix& rMat)
 {
 	if (_cols != rMat._rows)

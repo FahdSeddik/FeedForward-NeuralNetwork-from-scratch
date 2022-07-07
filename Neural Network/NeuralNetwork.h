@@ -19,6 +19,7 @@ public:
 	//Returns Neural Network output Matrix
 	Matrix forward_pass(Matrix& input);
 
+	//uses MSE
 	void back_prop(Matrix& Expected,float learnRate=0.01);
 	//void compile(const string optimizer = "adam", const string loss = "mae", const string metrics = "mae");
 
@@ -26,6 +27,13 @@ public:
 	//[Input1column  Input2column....]
 	//matrix Y
 	//[Output1column  output2column...]
-	void train(Matrix& X, Matrix& Y,const int batch_size,const int epochs,const float learnRate);
+	void train(Matrix& X, Matrix& Y,const int epochs=500,const float learnRate=0.01);
+
+	//takes matrix X input
+	//1 column & input_shape rows
 	void test(Matrix& X);
+
+	//Prints a summary of the neural network's properties
+	void summary()const;
+
 };

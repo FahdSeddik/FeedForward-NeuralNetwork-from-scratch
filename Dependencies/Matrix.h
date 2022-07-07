@@ -57,6 +57,7 @@ public:
 	//Operator overloading
 	Matrix operator*(const Matrix& rMat)const;
 	Matrix operator*(const float scalar)const;
+	Matrix& operator*=(const float scalar);
 	Matrix& operator*=(const Matrix& rMat);
 	Matrix operator+(const Matrix& rMat)const;
 	Matrix& operator+=(const Matrix& rMat);
