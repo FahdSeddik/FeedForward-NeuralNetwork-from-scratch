@@ -21,18 +21,21 @@ Matrix NN::forward_pass(Matrix& Input)
 	}
 	
 	
-
+	last_output = Output;
 	return Output;
 }
 
-void NN::back_prop(Matrix& MSE,float learnRate)
+void NN::back_prop(Matrix& Expected,float learnRate)
 {
 	//Y is a column vector
 	//rows are units of output layer
 	
 	// MSE cost function (y'-y)^2
 	// delta = 2*(y'-y)*del wj
-	Matrix Delta(MSE);
+	
+	Matrix Delta = (Expected - last_output);
+
+
 	for (int i = numLayers - 1; i >= 0; i--)
 	{
 		Layers[i].backward(Delta, learnRate);
@@ -46,8 +49,9 @@ void NN::back_prop(Matrix& MSE,float learnRate)
 void NN::train(Matrix& X, Matrix& Y,const int batch_size,const int epochs,const float learnRate)
 {
 	Matrix Input,Output;
+	Matrix MSE;
 	MSE = Matrix::Zero(Y.get_rows(), 1);
-	int col = 0,upperbound=batch_size;
+	int col = 0;
 	while (col<=Y.get_cols())
 	{
 		for (int i = 0; i < epochs; i++)
@@ -68,7 +72,6 @@ void NN::train(Matrix& X, Matrix& Y,const int batch_size,const int epochs,const 
 			MSE -= MSE;
 		}
 		col += batch_size;
-		//upperbound = (col + batch_size) >= Y.get_cols() ? (Y.get_cols()) : (col + batch_size);
 	}
 }
 

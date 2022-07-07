@@ -82,6 +82,15 @@ Matrix Layer::forward(const Matrix& Vector)
 			Operation.at(i, 0) = (float)1.0 / (float)((float)1.0 + exp(-Operation.at(i, 0)));
 		}
 	}
+	else if (activation == "relu") {
+		for (int i = 0; i < units; i++)
+		{
+			//	relu(x) = max(0,x);
+			if (Operation.at(i, 0) <= 0) {
+				Operation.at(i, 0) = 0;
+			}
+		}
+	}
 	last_output = Operation;
 	return Operation;
 }
@@ -91,12 +100,13 @@ void Layer::backward(Matrix& D,float learnRate)
 	// Matrix D is Delta
 		
 	if (activation == "sigmoid") {
-		delta_W = D * last_output.Transpose() * (Matrix::One(last_output.get_rows(), last_input.get_cols()) - last_output)* last_input.Transpose() * learnRate;
-
-		D = W.Transpose() * D* last_output.Transpose() * (Matrix::One(last_output.get_rows(), last_input.get_cols()) - last_output);
+		delta_W = D * last_output.Transpose() * (Matrix::One(last_output.get_rows(), last_output.get_cols()) - last_output)* last_input.Transpose() * learnRate;
+		delta_B = D * learnRate;
+		D = W.Transpose() * D* last_output.Transpose() * (Matrix::One(last_output.get_rows(), last_output.get_cols()) - last_output);
 	}
 	else {
 		delta_W = D * last_input.Transpose() * learnRate;
+		delta_B = D * learnRate;
 		D = W.Transpose() * D;
 	}
 	
@@ -108,7 +118,14 @@ void Layer::update_weights()
 {
 	W += delta_W;
 	//cout << "Updated by:\n" << delta_W;
+	B += delta_B;
+	/*cout << "Delta B:\n" << delta_B;
+	cout << "\nDelta W:\n" << delta_W;*/
+	delta_B -= delta_B;
 	delta_W -=delta_W;
+	
+	//cout << "Bias:\n" << B;
+	//cout << "Weights:\n" << W;
 }
 
 int Layer::get_units() const

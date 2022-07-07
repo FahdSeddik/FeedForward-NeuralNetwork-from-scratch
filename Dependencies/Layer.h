@@ -35,7 +35,7 @@ private:
 	Matrix last_input;
 	Matrix last_output;
 	Matrix delta_W;
-
+	Matrix delta_B;
 	//units are rows of matrix
 	//input shape defines columns of matrix
 	int units,input_shape;
@@ -82,7 +82,7 @@ public:
 
 	//
 	void backward(Matrix& D,float learnRate);
-	void backward(Layer& Next,float learnRate,float delta);
+	
 
 	void update_weights();
 
