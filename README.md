@@ -82,7 +82,7 @@ This would create the equivalent matrices shown below.  <br></br>
 ![image](https://user-images.githubusercontent.com/62207434/177877035-60a6b945-a767-450d-bfbe-eefa8cf4ae1a.png)
 
 If you noticed, it acts as the logical table of a NAND gate!.  
-Now, we want to train our model. We cant use the train() method.
+Now, we want to train our model. We can use the train() method.
 ```cpp
   int epochs = 10000;
   float learnRate = 0.05;
