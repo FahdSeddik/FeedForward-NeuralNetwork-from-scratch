@@ -91,7 +91,32 @@ Now, we want to train our model. We cant use the train() method.
   model.train(X, Y, epochs, learnRate);
 ```
 You would see this on your screen. It will also print a progress bar that would gradually print 10 "#" hashes, each representing 10% closer to completion.  <br></br>
+<img src="https://user-images.githubusercontent.com/62207434/177878400-f2ef97d2-2331-4f5b-89f2-0c5c3754cbbc.gif" width="250" /> <br></br>
+When it comes to testing, all you need is have column vectors of your input then use test() method.
+```cpp
+  //Test
+  cout << "\nTesting:\n";
+  Matrix test;
+  test = X.Column(0);
+  cout << "Y0:";
+  model.test(test);
+  test = X.Column(1);
+  cout << "Y1:";
+  model.test(test);
+  test = X.Column(2);
+  cout << "Y2:";
+  model.test(test);
+  test = X.Column(3);
+  cout << "Y3:";
+  model.test(test);
+  cout << "\nExpected to be close to: " <<Y;
+```
+Then, you should have something like this.  <br></br>
+![image](https://user-images.githubusercontent.com/62207434/177879211-4f69494b-b851-4cff-8ee0-bccb52328244.png) <br></br>
 
-![Training-model](https://user-images.githubusercontent.com/62207434/177878400-f2ef97d2-2331-4f5b-89f2-0c5c3754cbbc.gif)
-
-
+If you want, you could print a model's summary using the summary() method as shown below.
+```cpp
+  //Printing summary of model
+  model.summary();
+```
+![image](https://user-images.githubusercontent.com/62207434/177879631-9b71049f-3be6-4655-b42e-b47708426f73.png)
