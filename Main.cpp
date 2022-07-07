@@ -28,7 +28,7 @@ int main() {
 	Y.at(0, 1) = 1;
 	Y.at(0, 2) = 1;
 	Y.at(0, 3) = 0;
-	int epochs = 1000;
+	int epochs = 10000;
 	float learnRate = 0.05;
 
 	cout <<"X_train:\n"<< X <<"Y_train:\n" << Y<<endl;
