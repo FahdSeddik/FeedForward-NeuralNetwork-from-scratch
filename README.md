@@ -43,7 +43,7 @@ For the matrix X Each column would represent one input to the neural network (a 
 
 To initialize a neural network:
 ```cpp
-#include "NeuralNetwork/NeuralNetwork.h"
+#include "Neural Network/NeuralNetwork.h"
 
 int main(){
   //Create array of layers
