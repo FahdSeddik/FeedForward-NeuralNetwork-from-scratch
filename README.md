@@ -123,6 +123,7 @@ If you want, you could print a model's summary using the summary() method as sho
 ![image](https://user-images.githubusercontent.com/62207434/177879631-9b71049f-3be6-4655-b42e-b47708426f73.png)
 
 ## Tasks
+- [ ] Add ability to save and load a model.
 - [ ] Implement Dropout layers.
 - [ ] Implement BatchNormalization layers.
 - [ ] Add ability to change cost function.
