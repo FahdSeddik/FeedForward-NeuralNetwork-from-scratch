@@ -1,5 +1,5 @@
 # Feed-Forward Neural Network from scratch
-This is a FeedForward Neural Network with back-propagation written in C++ with no external libraries. The aim for this project was to create a simple version of TensorFlow's Keras sequential neural network from scratch in C++.
+This is a FeedForward Neural Network with back-propagation written in C++ with no external libraries. The aim for this project was to create a simple version of TensorFlow's Keras sequential neural network from scratch in C++. As a challenge, I did not refer to any of TF's source code or implementation.
 
 ## Classes
 
