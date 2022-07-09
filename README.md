@@ -93,7 +93,7 @@ Now, we want to train our model. We can use the train() method.
 ```
 You would see this on your screen. It will also print a progress bar that would gradually print 10 "#" hashes, each representing 10% closer to completion.  <br></br>
 <img src="https://user-images.githubusercontent.com/62207434/177878400-f2ef97d2-2331-4f5b-89f2-0c5c3754cbbc.gif" width="250" /> <br></br>
-When it comes to testing, all you need is have column vectors of your input then use test() method.
+When it comes to testing, all you need is have column vectors of your input, then use test() method.
 ```cpp
   //Test
   cout << "\nTesting:\n";
