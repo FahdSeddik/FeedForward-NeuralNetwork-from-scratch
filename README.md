@@ -53,7 +53,7 @@ int main(){
   Layer Layers[] = {
 		Layer(2,2,"relu","nx"),
 		Layer(1,"relu")
-  }
+  };
   //Initialize neural network with array and size
   NN model(Layers, 2);
 }
