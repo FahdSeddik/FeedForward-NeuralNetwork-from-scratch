@@ -129,3 +129,6 @@ If you want, you could print a model's summary using the summary() method as sho
 - [ ] Add ability to change cost function.
 - [ ] Add Adam optimizer.
 - [ ] Optimize matrix multiplication. (maybe use Strassen's Algorithm)
+
+## License
+[MIT License](https://github.com/FahdSeddik/FeedForward-NeuralNetwork-from-scratch/blob/main/LICENSE)
