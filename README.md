@@ -5,10 +5,10 @@ This is a FeedForward Neural Network with back-propagation written in C++ with n
 
 In Dependencies folder:
 * **Matrix**: This is a simple matrix class that allows for matrix operations and several other useful methods.
-  - at(row,col) : returns value at specified row and column (0-indexed).
-  - Transpose() : returns a transposed copy of current matrix.
-  - static Matrix::Zero(rows,cols) **and** Matrix::One(rows,cols) : return a matrix of all zeroes or ones respectively provided number of rows and columns.
-  - set_values(vector,rows,cols) : initialize a matrix with a 2d vector of floats (can accept 1d vector of floats).  <br></br>
+  - `at(row,col)` : returns value at specified row and column (0-indexed).
+  - `Transpose()` : returns a transposed copy of current matrix.
+  - static `Matrix::Zero(rows,cols)` **and** `Matrix::One(rows,cols)` : return a matrix of all zeroes or ones respectively provided number of rows and columns.
+  - `set_values(vector,rows,cols)` : initialize a matrix with a 2d vector of floats (can accept 1d vector of floats).  <br></br>
 * **Layer**: Basic element of the NN class. It provides a handful of activation functions.
   * Activation Functions:
     - Sigmoid **(Default)** 
@@ -16,18 +16,18 @@ In Dependencies folder:
   * Weight Initialization:
     - Normalized Xavier
   * Some Methods:
-    - forward(Matrix) : returns the output of activation(Weights*Matrix + Bias) as a Matrix.
-    - backward(Matrix,float) : calculates delta_W and delta_B for both weights and biases respectively.
-    - summary() : prints a summary of the layer properties (units, input shape, etc.).
+    - `forward(Matrix)` : returns the output of activation(Weights*Matrix + Bias) as a Matrix.
+    - `backward(Matrix,float)` : calculates delta_W and delta_B for both weights and biases respectively.
+    - `summary()` : prints a summary of the layer properties (units, input shape, etc.).
 
 ### Neural Network:
 * Cost function: MSE
 * Methods:
-  - forward_pass(Matrix) : returns output of one forward pass using the neural network given Matrix input.
-  - back_prop(Matrix,float) : performs one backward pass and updates weights and biases of all layers given expected Matrix and learnRate float.
-  - train(Matrix,Matrix,int,float) : trains neural network given X_train and y_train matrices provided number of epochs and learnRate. (Please refer to data set preparation section for more details)
-  - test(Matrix) : prints neural network output after 1 pass given input. (equivalent to printing forwad_pass).
-  - summary() : prints a summary of all the neural network properties. (shows weight and biases matrices of each layer).
+  - `forward_pass(Matrix)` : returns output of one forward pass using the neural network given Matrix input.
+  - `back_prop(Matrix,float)` : performs one backward pass and updates weights and biases of all layers given expected Matrix and learnRate float.
+  - `train(Matrix,Matrix,int,float)` : trains neural network given X_train and y_train matrices provided number of epochs and learnRate. (Please refer to data set preparation section for more details)
+  - `test(Matrix)` : prints neural network output after 1 pass given input. (equivalent to printing forwad_pass).
+  - `summary()` : prints a summary of all the neural network properties. (shows weight and biases matrices of each layer).
   
 ## Data Set Preparation
 
@@ -82,7 +82,7 @@ This would create the equivalent matrices shown below.  <br></br>
 ![image](https://user-images.githubusercontent.com/62207434/177877035-60a6b945-a767-450d-bfbe-eefa8cf4ae1a.png)
 
 If you noticed, it acts as the logical table of a NAND gate!.  
-Now, we want to train our model. We can use the train() method.
+Now, we want to train our model. We can use the `train()` method.
 ```cpp
   int epochs = 10000;
   float learnRate = 0.05;
@@ -93,7 +93,7 @@ Now, we want to train our model. We can use the train() method.
 ```
 You would see this on your screen. It will also print a progress bar that would gradually print 10 "#" hashes, each representing 10% closer to completion.  <br></br>
 <img src="https://user-images.githubusercontent.com/62207434/177878400-f2ef97d2-2331-4f5b-89f2-0c5c3754cbbc.gif" width="250" /> <br></br>
-When it comes to testing, all you need is have column vectors of your input, then use test() method.
+When it comes to testing, all you need is have column vectors of your input, then use `test()` method.
 ```cpp
   //Test
   cout << "\nTesting:\n";
@@ -115,7 +115,7 @@ When it comes to testing, all you need is have column vectors of your input, the
 Then, you should have something like this.  <br></br>
 ![image](https://user-images.githubusercontent.com/62207434/177879211-4f69494b-b851-4cff-8ee0-bccb52328244.png) <br></br>
 
-If you want, you could print a model's summary using the summary() method as shown below.
+If you want, you could print a model's summary using the `summary()` method as shown below.
 ```cpp
   //Printing summary of model
   model.summary();
